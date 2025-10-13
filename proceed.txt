@@ -1,0 +1,9 @@
+este é um aplicativo de música com webview, não altere as partes que você não fui instruida
+
+o aplicativo era pra emitir um sinal para o mediasession ser acionado e assim, ativar o nowbar da samsung, mas não funciona, leia os arquivos necessarios 
+
+no player.js, altere somente oque faz parte da integração bridge.
+
+dessa vez com um alerta "10-12 14:11:38.150 29295 29295 D WebViewConsole: Uncaught TypeError: [ PLAYER ]: [ PAUSE_EVENT ]: can't send informations to KOTLIN -- [file:///android_asset/js/components/Player.js:96]"
+
+leia os arquivos para concluir o fluxo 

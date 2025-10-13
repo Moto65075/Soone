@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/VELORA.css">
+<style>
+  .my-avatar {
+    position: sticky;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 1in;
+    margin: 5px;
+  }
+  .search-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(5px);
+    padding: 10px;
+    padding: 5px;
+    
+    & h2 {
+      margin: 0;
+      color: #fff;
+      text-align: left;
+    }
+    & .textbox {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 29px;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      & input {
+        border: none;
+        width: 87%;
+        background: none;
+        outline: none;
+        color: #fff;
+      }
+      
+      i {
+        position: absolute;
+        left: 15px;
+        padding-right: 3px;
+        border-right: 1.5px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+   }
+  hr {
+    padding: 0.5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .page-content {
+    height: 92vh;
+    overflow: scroll;
+  }
+  
+  .vel {
+    backdrop-filter: brightness(1.20);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(var(--hover), 0.05);
+    background: transparent;
+    outline: none;
+    transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
+    }
+</style>
+</head>
+<body theme-dark>
+ <div class="notification-popup" onclick="backToAfterPage()">
+      <i class="icon-arrow_back"></i> 
+      <div class="notification-content">notification content</div>
+    </div><!--
+  <img src="images/karaoke.png" alt="I" class="my-avatar" onclick="userOptions()">
+  <div id="page-content">
+  </div>-->
+
+  <div class="player closed">
+    <div class="player-header">
+      <i class="icon-keyboard_arrow_left" onclick="player.closePlayer()"></i>
+      <div class="foryou"></div>
+      <i class="icon-more_vert" onclick="player.playerOptions()"></i>
+    </div>
+    <div class="lyrics-big" onclick="player.bigLyrics()">
+    </div>
+    <img src="karaoke.png" onclick="player.controlsScreen()" crossorigin="anonymous" class="thumbnail">
+    <div class="panel">
+      <div class="song">
+      <img src="sza.jpg" class="song-picture">
+        <div class="song-infos">
+        <h2 class="song-title">Song Name</h2>
+        <div class="song-author">by Author</div>
+       </div> <i class="add-song icon-playlist_add"></i>
+      </div>
+      <div class="bar" onclick="player.seek(event.offsetX)">
+        <div class="progress-of-bar"></div>
+      </div>
+      <div class="duration">
+        <div id="duration-real">00:00</div>
+        <div id="duration-progress">00:00</div>
+        </div>
+      <div class="controls">
+        <i class="icon-shuffle"></i> 
+        <i class="icon-skip_previous skip-icons disabled"></i> 
+        <i onclick="player.play()" class="icon-play_arrow play-button"></i>
+        <i class="icon-skip_next skip-icons" onclick="player.nextSongForyou()"></i> 
+        <i class="icon-repeat loop-icon" onclick="player.loop()"></i>
+      </div>
+    </div>
+    <div class="lyrics vel" onclick="player.bigLyrics()">
+      <div id="lyrics-mini-content">lyrics of song</div>
+      </div>
+  </div>
+  <div class="miniPlayer glass closed">
+    <img src="sza.jpg" onclick="player.openPlayer()" class="mini-thumbnail">
+    <div class="infos">
+      <h4 class="mini-title">Song Name</h4>
+      <div class="song-author">Song Author</div>
+    </div>
+    <i class="icon-play_arrow play-button" role="button" tabindex="0" aria-label="play song" onclick="window.soone.play()"></i>
+    <div class="bar">
+      <div class="progress-of-bar"></div>
+    </div>
+  </div>
+  <div class="bottom-sheet-body-hiden hided"></div>
+  <div class="bottom-sheet hided glass">
+  <div class="bottom-sheet-interager-area">
+  <div class="bottom-sheet-dash"></div>
+  </div>
+  <div class="bottom-sheet-title">bottom sheet</div>
+  <hr>
+  <div id="bottom-sheet-content">
+    content
+  </div>
+</div>
+    <main class="page-content">
+      cu
+    </main>
+    <div class="nav-bar">
+      <i onclick="selectPage(0)" class="icon-notifications nav-icon"></i>
+      <i onclick="selectPage(1)" class="icon-search nav-icon"></i>
+      <i onclick="selectPage(2)" class="icon-home nav-icon selected"></i>
+      <i onclick="selectPage(3)" class="icon-library_books nav-icon"></i>
+      <img src="images/karaoke.png" class="user-avatar nav-icon" onclick="selectPage(4)">
+    </div>
+    <div class="nav-bar sub-nav"></div><script src="js/components/PlayerInterface.js"></script>
+<script src="js/core/Swipe.js"></script>
+<script src="js/core/Liricle.js"></script>
+<script src="js/components/Kamper.js"></script>
+<script src="js/core/Cu.js"></script>
+<script src="js/components/BottomSheet.js"></script>
+<script src="js/pages/main.js"></script>
+<script src="js/pages/pages.js"></script>
+
+</body>
+</html>
