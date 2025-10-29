@@ -3,89 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script src="js/components/SoonePlayerInterface.js"></script>
+<script src="js/core/Swipe.js"></script>
+<script src="js/components/BottomSheet.js"></script>
+<script src="js/pages/main.js"></script>
+<script src="js/pages/pages.js"></script>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/VELORA.css">
-<style>
-  .my-avatar {
-    position: sticky;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 1in;
-    margin: 5px;
+<script>
+  const sooneInterface = new SoonePlayerInterface();
+  
+  window.onload = () => {
+   selectPage(2)
   }
-  .search-header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(5px);
-    padding: 10px;
-    padding: 5px;
+  
+  function showDrop(content, icon) {
+    const drop = document.querySelector(".drop-song");
+    const dropContent = document.getElementById("drop-content");
+    cons
+    .classList.add("vel")
     
-    & h2 {
-      margin: 0;
-      color: #fff;
-      text-align: left;
-    }
-    & .textbox {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 29px;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      & input {
-        border: none;
-        width: 87%;
-        background: none;
-        outline: none;
-        color: #fff;
-      }
-      
-      i {
-        position: absolute;
-        left: 15px;
-        padding-right: 3px;
-        border-right: 1.5px solid rgba(255, 255, 255, 0.3);
-      }
-    }
-   }
-  hr {
-    padding: 0.5px;
-    border: none;
-    background: rgba(255, 255, 255, 0.5);
+    dropContent.innerHTML = content
+    drop.classList.add("show");
   }
+</script>
+<style>
+.drop-song {
+  padding: 5px; 
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  margin: 10px; 
+  border-radius: 1in;
+  color: var(--main-text-color);
+  transition: var(--cubic-transition);
+  opacity: 0;
   
-  .page-content {
-    height: 92vh;
-    overflow: scroll;
-  }
+}
+
+.drop-song #drop-content {
+  transition: var(--cubic-transition);
+  font-size: 0;
+}
+
+.drop-song.show {
+  opacity: 1;
   
-  .vel {
-    backdrop-filter: brightness(1.20);
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(var(--hover), 0.05);
-    background: transparent;
-    outline: none;
-    transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
-    }
+}
+
+.drop-song.show #drop-content {
+  font-size: 15px;
+}
+
+.drop-song.show i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-right: 5px;
+  border-radius: 1in;
+}
+
+.image-box {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: .3s showTitle cubic-bezier(0.25, 1.5, 0.5, 1);
+  animation-fill-mode: forwards;
+  margin-top: 25px;
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 5px 4px 25px rgba(0,0,0,0.5);
+}
+
+.image-box img {
+  width: 80px;
+  height: 80px;
+}
+
+.image-box h2 {
+  margin: 0;
+}
+
+.downloaded-track {
+  padding: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-radius: 20px;
+  margin: 5px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: .7s showTitle cubic-bezier(0.25, 1.5, 0.5, 1);
+  animation-delay: .1s;
+  animation-fill-mode: forwards;
+}
+
+.downloaded-track img {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px
+}
+
+.downloaded-track .infos {
+  flex-direction: column;
+  line-height: 1;
+  margin: 3px;
+}
+
+.downloaded-track .infos h3 {
+  margin: 0;
+}
+
+.downloaded-track p {
+  opacity: 0.5;
+  margin: 0;
+}
 </style>
+
 </head>
 <body theme-dark>
- <div class="notification-popup" onclick="backToAfterPage()">
+ <div style="background: var(--body)" class="notification-popup vel" onclick="backToAfterPage()">
       <i class="icon-arrow_back"></i> 
       <div class="notification-content">notification content</div>
-    </div><!--
-  <img src="images/karaoke.png" alt="I" class="my-avatar" onclick="userOptions()">
-  <div id="page-content">
-  </div>-->
-
+    </div>
+ <div class="drop-song vel">
+   <i class="icon-music_note"></i> 
+   <span id="drop-content"></span>
+ </div>
   <div class="player closed">
     <div class="player-header">
-      <i class="icon-keyboard_arrow_left" onclick="player.closePlayer()"></i>
+      <i class="icon-keyboard_arrow_left" onclick="sooneInterface.closePlayer()"></i>
       <div class="foryou"></div>
-      <i class="icon-more_vert" onclick="player.playerOptions()"></i>
+      <i class="icon-more_vert" onclick="sooneInterface.playerOptions()"></i>
     </div>
     <div class="lyrics-big" onclick="player.bigLyrics()">
     </div>
@@ -118,12 +170,12 @@
       </div>
   </div>
   <div class="miniPlayer glass closed">
-    <img src="sza.jpg" onclick="player.openPlayer()" class="mini-thumbnail">
+    <img src="sza.jpg" onclick="sooneInterface.openPlayer()" class="mini-thumbnail">
     <div class="infos">
       <h4 class="mini-title">Song Name</h4>
       <div class="song-author">Song Author</div>
     </div>
-    <i class="icon-play_arrow play-button" role="button" tabindex="0" aria-label="play song" onclick="window.soone.play()"></i>
+    <i class="icon-play_arrow play-button" role="button" tabindex="0" aria-label="play song" onclick="player.play()"></i>
     <div class="bar">
       <div class="progress-of-bar"></div>
     </div>
@@ -140,23 +192,17 @@
   </div>
 </div>
     <main class="page-content">
-      cu
+      waiting for Js... 
+      
     </main>
-    <div class="nav-bar">
-      <i onclick="selectPage(0)" class="icon-notifications nav-icon"></i>
+
+    <div class="nav-bar vel" style="background: var(--body)">
+      <i onclick="selectPage(0)" class="icon-history nav-icon"></i>
       <i onclick="selectPage(1)" class="icon-search nav-icon"></i>
       <i onclick="selectPage(2)" class="icon-home nav-icon selected"></i>
-      <i onclick="selectPage(3)" class="icon-library_books nav-icon"></i>
-      <img src="images/karaoke.png" class="user-avatar nav-icon" onclick="selectPage(4)">
+      <i onclick="selectPage(3)" class="icon-file_download nav-icon"></i>
+      <img src="images/karaoke.png" class="user-avatar nav-icon" onclick="userOptions()">
     </div>
-    <div class="nav-bar sub-nav"></div><script src="js/components/PlayerInterface.js"></script>
-<script src="js/core/Swipe.js"></script>
-<script src="js/core/Liricle.js"></script>
-<script src="js/components/Kamper.js"></script>
-<script src="js/core/Cu.js"></script>
-<script src="js/components/BottomSheet.js"></script>
-<script src="js/pages/main.js"></script>
-<script src="js/pages/pages.js"></script>
-
+    <div class="nav-bar sub-nav vel"></div>
 </body>
 </html>

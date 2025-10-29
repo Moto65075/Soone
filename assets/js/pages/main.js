@@ -3,7 +3,7 @@
 function userOptions() {
   hableSheet({
     title: `<div class="icon-in-sheet">
-      <img class="icon-img-in-sheet sub-nav-avatar" src="build/images/karaoke.png">
+      <img class="icon-img-in-sheet" src="build/images/karaoke.png">
       <div class="infos">
       <h3 class="icon-in-sheet-title">You</h3>
       </div>`,

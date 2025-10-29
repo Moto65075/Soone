@@ -1,38 +1,13 @@
 @import "VELORA.css";
 
-.page-title {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: .5s showTitle cubic-bezier(0.25, 1.5, 0.5, 1);
-  animation-fill-mode: forwards;
-}
-
-@keyframes showTitle {
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.search-box {
-  display: grid;
-  gap: 10px;
-  padding: 10px;
-  background-color: transparent;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-}
-
-.search-box .search-topic {
-  margin: 0;
-  padding: 5px;
-  border-radius: 15px;
-  height: 230px;
-  width: auto;
-}
-
-
+.glass {
+      backdrop-filter: brightness(1.20);
+      box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(var(--hover), 0.05);
+      background: transparent;
+      outline: none;
+      transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
+    }
 .player {
   padding: 0;
   text-align: center;
@@ -44,7 +19,7 @@
   color: #fff;
   bottom: 0;
   z-index: 1000;
-  border-radius: 20px;
+  will-change: margin, opacity, top;
   transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
 }
 .player .player-header {
@@ -275,6 +250,10 @@
   transform: translateY(20vh) scale(0);
 }
 
+.player .lyrics-big.show {
+  transform: scale(1);
+  opacity: 1;
+}
 .player .lyrics-big .lyrics-header {
   padding: 5px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -323,14 +302,9 @@
   margin: 0;
   text-align: left;
 }
-.player .lyrics-big.show {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-  border-radius: 0;
-}
 .player.closed {
-  opacity: 1;
-  transform: scale(0) translateY(90vh);
+  opacity: 0;
+  transform: scale(0);
   border-radius: 50px;
 }
 .player.closed .thumbnail {
@@ -387,7 +361,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s cubic-bezier(0.25, 1.5, 0.5, 1), color 0.5s cubic-bezier(0.25, 1.5, 0.5, 1), background ease .2s;
+  transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
   line-height: 1;
   will-change: top, margin;
   touch-action: manipulation;
@@ -443,12 +417,9 @@
   font-size: 25px;
 }
 .miniPlayer.closed {
-  transform: translateY(500px) scale(0.7);
+  margin: 10px;
+  bottom: -120px;
   border-radius: 1in;
-}
-.miniPlayer.isSearching {
-   transform: scale(0.9) translateY(-30px); 
-   opacity: 0.2;
 }
 .bottom-sheet {
   bottom: 0;
@@ -574,61 +545,6 @@
 .bottom-sheet-body-hiden.hided {
   opacity: 0;
   pointer-events: none;
-}
-
-.search-filters {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 162px;
-  padding: 10px;
-  border-radius: 1in;
-  z-index: 5;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: .5s showTitle cubic-bezier(0.25, 1.5, 0.5, 1);
-  animation-delay: .3s;
-  animation-fill-mode: forwards;
-  color: var(--main-text-color);
-  transition: var(--cubic-transition);
-}
-
-.search-filters span {
-  font-size: 0;
-  transition: var(--cubic-transition);
-}
-
-.search-filters span.show {
-  font-size: 15px;
-  padding: 2px;
-}
-
-.search-filters.minimize {
-  opacity: 0.1;
-  animation: none;
-  pointer-events: none;
-}
-
-.loader {
-  height: 12px;
-  width: 60px;
-  position: absolute;
-  top: 300px;
-  right: 50%;
-  left: 42%;
-  --c:no-repeat linear-gradient(var(--main-text-color) 0 0);
-  background: var(--c), var(--c), var(--c), var(--c);
-  background-size: 26% 3px;
-  animation: l8 1s infinite;
-}
-@keyframes l8 {
-  0%,
-  70%,
-  100%  {background-position: calc(0*100%/3) 50% ,calc(1*100%/3) 50%,calc(2*100%/3) 50%,calc(3*100%/3) 50%}
-  23.33%{background-position: calc(0*100%/3) 100%,calc(1*100%/3) 66%,calc(2*100%/3) 33%,calc(3*100%/3) 0  }
-  46.67%{background-position: calc(3*100%/3) 100%,calc(2*100%/3) 66%,calc(1*100%/3) 33%,calc(0*100%/3) 0  }
-  69.99%{background-position: calc(3*100%/3) 50% ,calc(2*100%/3) 50%,calc(1*100%/3) 50%,calc(0*100%/3) 50%}
 }
 
 @keyframes fadeInFromBottom {

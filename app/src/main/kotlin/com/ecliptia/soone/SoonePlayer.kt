@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer 
 import android.util.Log 
 import android.webkit.WebView 
+import android.support.v4.media.session.MediaSessionCompat // Importe MediaSessionCompat
 import kotlinx.serialization.Serializable 
 import kotlinx.serialization.encodeToString 
 import kotlinx.serialization.json.Json 
@@ -35,7 +36,7 @@ class SoonePlayer (private val context: Context, var view: WebView) {
    private var linkedTrack = false
    private var mediaPlayer: MediaPlayer? = null 
    private var isDebugging = false
-   
+   private var mediaSession: MediaSessionCompat? = null 
 
    var currentTrack: CurrentTrack? = null 
    
@@ -63,13 +64,24 @@ class SoonePlayer (private val context: Context, var view: WebView) {
       if (mediaPlayer?.isPlaying == true) {
           isPlaying = true
           onPlay(this, currentTrack) 
+          if(isDebugging) Log.d("SooneDebug", "Música iniciada.")
       }
+      mediaSession?.isActive = true
    }
    
    fun init(firstTrack: CurrentTrack) {
-     if(linkedTrack) return
+     if(linkedTrack) {
+         if(isDebugging) Log.d("SooneDebug", "init() ignorado: linkedTrack=true")
+         return
+     }
+     
+     if(isDebugging) Log.d("SooneDebug", "Iniciando MediaPlayer e MediaSession...")
      
      mediaPlayer = MediaPlayer.create(context, R.raw.sza) 
+     
+     mediaSession = MediaSessionCompat(context, "SoonePlayerSession")
+     mediaSession?.setMediaButtonReceiver(null)
+     
      currentTrack = firstTrack
      linkedTrack = true
      
@@ -77,6 +89,7 @@ class SoonePlayer (private val context: Context, var view: WebView) {
      
      mediaPlayer?.setOnCompletionListener { 
         onEnded(this, currentTrack)
+        if(isDebugging) Log.d("SooneDebug", "Música terminada.")
      }
      
      val stringEncoded = Json.encodeToString(firstTrack)
@@ -84,11 +97,22 @@ class SoonePlayer (private val context: Context, var view: WebView) {
      exectJs("""
        const song = $stringEncoded
      """)
+     
+     if (itsAutoPlay) {
+         mediaPlayer?.start()
+         mediaSession?.isActive = true
+         if(isDebugging) Log.d("SooneDebug", "AutoPlay ativo. Música iniciada.")
+     }
+     
+     if(isDebugging) Log.d("SooneDebug", "Inicialização do Player e Session concluída.")
    }
 
    fun release() {
     currentTrack = null
     mediaPlayer?.release()
+    mediaSession?.isActive = false
+    mediaSession?.release()
+    if(isDebugging) Log.d("SooneDebug", "Player e MediaSession liberados.")
    }
    
    fun pause() { 
@@ -96,7 +120,9 @@ class SoonePlayer (private val context: Context, var view: WebView) {
      if (mediaPlayer?.isPlaying == false) {
           isPlaying = false
           onPause(this, currentTrack) 
+          if(isDebugging) Log.d("SooneDebug", "Música pausada.")
       }
+      mediaSession?.isActive = false
    } 
    
    fun exectJs(command: String, element: String? = null) {
@@ -107,4 +133,4 @@ class SoonePlayer (private val context: Context, var view: WebView) {
    }
 }
 
-/** Soone Media Player, Streams **/ 
+/** Soone Player **/

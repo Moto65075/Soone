@@ -14,7 +14,7 @@ Colored
 
 :root {
   --bg: rgb(178,205,255);
-  --cubic-transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1)
+  --secondary: 
 }
     
 * {
@@ -187,6 +187,7 @@ body[theme-light] {
 }
 
 .nav-bar.sub-nav {
+  background: rgba(var(--cards), 0.4);
   z-index: 1;
   height: 200px;
   transform: translateY(500px);
@@ -210,7 +211,7 @@ body[theme-light] {
   align-items: center;
 }
 
-.sub-nav-avatar {
+.nav-bar.sub-nav .infos .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -361,55 +362,6 @@ main .search-card h3 {
     font-family: "Tilt Regular";
     text-shadow: 0 0 1em rgba(var(--shadow), 0.30), 0 0 0.2em rgba(var(--shadow), 0.30);
 }
-
-   .search-header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(5px);
-    padding: 10px;
-    padding: 5px;
-   }
-  .search-header h2 {
-      margin: 0;
-      color: #fff;
-      text-align: left;
-    }
-  .search-header .textbox {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 29px;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-  .search-header .textbox input {
-        border: none;
-        width: 87%;
-        background: none;
-        outline: none;
-        color: #fff;
-      }
-      
-  .search-header .textbox i {
-        position: absolute;
-        left: 15px;
-        padding-right: 3px;
-        border-right: 1.5px solid rgba(255, 255, 255, 0.3);
-      }
-  hr {
-    padding: 0.5px;
-    border: none;
-    background: rgba(255, 255, 255, 0.5);
-  }
-  
-  .vel {
-    backdrop-filter: brightness(1.20);
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(var(--hover), 0.05);
-    background: transparent;
-    outline: none;
-    transition: all 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
-    }
 
 .final-animation-message {
     position: fixed;
